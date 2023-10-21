@@ -109,11 +109,30 @@
 
 <p>Calculates the determinant of a square matrix of size NxN. This function recursively calculates the determinant for larger matrices by applying the Laplace expansion formula.</p>
 
+<h2>Integral Functions</h2>
+
+<h3><code>definite_integral_trapezoidal(f, a, b, n)</code></h3>
+
+<p>Calculates the definite integral of a function <code>f(x)</code> using the trapezoidal rule within the range [<code>a</code>, <code>b</code>] with <code>n</code> subintervals.</p>
+
+<h3><code>indefinite_integral_power_rule(f, C=0)</code></h3>
+
+<p>Calculates the indefinite integral of a function <code>f(x)</code> using the power rule with a constant of integration <code>C</code>.</p>
+
+<h2>Polynomial Functions</h2>
+
+<h3><code>evaluate_polynomial(coefs, x)</code></h3>
+
+<p>Evaluates a polynomial with coefficients <code>coefs</code> at a specific value <code>x</code>.</p>
+
+<h3><code>derivative_of_polynomial(coefs)</code></h3>
+
+<p>Calculates the derivative of a polynomial with coefficients <code>coefs</code>.</p>
+
+<h3><code>integral_of_polynomial(coefs, C=0)</code></h3>
+
+<p>Calculates the integral of a polynomial with coefficients <code>coefs</code> and a constant of integration <code>C</code>.</p>
+
 <h2>Conclusion</h2>
 
-<p>This project provides a rich set of mathematical and geometric functions suitable for various engineering and mathematical applications. This is a university project that includes mathematical constants, basic arithmetic operations, trigonometric functions, complex number operations, and geometric calculations. This resource can be valuable for students and learners studying mathematics, physics, and engineering sciences.
-
-
-
-
-</p>
+<p>This Python university project provides a comprehensive set of mathematical and geometric functions, along with constants and integral functions, that can be used for educational and practical purposes in the fields of mathematics, physics, and engineering. The project is organized into clearly defined functions and is designed to be a versatile and valuable resource for students and learners.</p>
