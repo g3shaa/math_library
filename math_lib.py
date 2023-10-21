@@ -157,7 +157,6 @@ def determinant(matrix):
         return det
 
 
-# Function to calculate the definite integral of a function f(x) using the trapezoidal rule
 def definite_integral_trapezoidal(f, a, b, n):
     h = (b - a) / n
     integral = 0.5 * (f(a) + f(b))
@@ -171,7 +170,6 @@ def indefinite_integral_power_rule(f, C=0):
     def integral(x):
         return (f(x) / 2) + C
     return integral
-
 
 # Function to evaluate a polynomial P(x) with coefficients coefs at a specific value x
 def evaluate_polynomial(coefs, x):
@@ -191,4 +189,283 @@ def integral_of_polynomial(coefs, C=0):
     result = [C]  # Constant of integration
     for i, coef in enumerate(coefs):
         result.append(coef / (i + 1))
-    return result   
+    return result
+
+# Add trigonometric functions
+def sin(x):
+    x = x % (2 * PI)
+    result = x
+    term = x
+    i = 1
+    while True:
+        term *= -x ** 2 / ((2 * i) * (2 * i + 1))
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return result
+
+def cos(x):
+    x = x % (2 * PI)
+    result = 1
+    term = 1
+    i = 1
+    while True:
+        term *= -x ** 2 / ((2 * i - 1) * (2 * i))
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return result
+
+def tan(x):
+    return sin(x) / cos(x)
+
+def cot(x):
+    return 1 / tan(x)
+
+def asin(x):
+    result = x
+    term = x
+    i = 1
+    while True:
+        term *= (x ** 2 * (2 * i - 1) ** 2) / ((2 * i) * (2 * i + 1))
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return result
+
+def acos(x):
+    return PI / 2 - asin(x)
+
+def atan(x):
+    result = x
+    term = x
+    i = 1
+    while True:
+        term *= -x ** 2 / ((2 * i + 1))
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return result
+
+# Add hyperbolic functions
+def cosh(x):
+    result = (exp(x) + exp(-x)) / 2
+    return result
+
+def sinh(x):
+    result = (exp(x) - exp(-x)) / 2
+    return result
+
+def tanh(x):
+    result = sinh(x) / cosh(x)
+    return result
+
+def acosh(x):
+    result = log(x + sqrt(x ** 2 - 1))
+    return result
+
+def asinh(x):
+    result = log(x + sqrt(x ** 2 + 1))
+    return result
+
+def atanh(x):
+    result = 0.5 * log((1 + x) / (1 - x))
+    return result
+
+# Add exponential and logarithmic functions
+def exp(x):
+    result = 1
+    term = 1
+    i = 1
+    while True:
+        term *= x / i
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return result
+
+def log(x):
+    if x <= 0:
+        raise ValueError("Math domain error")
+    result = 0
+    while x >= EULER_NUMBER:
+        x /= EULER_NUMBER
+        result += 1
+    result += log_series(x)
+    return result
+
+def log10(x):
+    if x <= 0:
+        raise ValueError("Math domain error")
+    return log(x) / log(10)
+
+def log_series(x):
+    result = 0
+    term = (x - 1) / (x + 1)
+    term_squared = term ** 2
+    i = 1
+    while True:
+        current_term = term / (2 * i - 1)
+        if current_term == 0:
+            break
+        result += current_term
+        term *= term_squared
+        i += 1
+    return 2 * result
+
+# Add power functions
+def pow(x, y):
+    if x == 0:
+        return 0
+    if y == 0:
+        return 1
+    result = 1
+    if y > 0:
+        for _ in range(int(y)):
+            result *= x
+    else:
+        for _ in range(int(-y)):
+            result /= x
+    return result
+
+def sqrt(x):
+    if x < 0:
+        raise ValueError("Math domain error")
+    result = x
+    while True:
+        previous_result = result
+        result = 0.5 * (result + x / result)
+        if result == previous_result:
+            break
+    return result
+
+def cbrt(x):
+    if x < 0:
+        return -cbrt(-x)
+    result = x
+    while True:
+        previous_result = result
+        result = (1 / 3) * ((2 * previous_result) + (x / (previous_result ** 2)))
+        if result == previous_result:
+            break
+    return result
+
+def hypot(x, y):
+    return sqrt(x ** 2 + y ** 2)
+
+# Add error and gamma functions
+def erf(x):
+    result = x
+    term = x
+    i = 1
+    while True:
+        term *= -(x ** 2) / (2 * i + 1)
+        if term == 0:
+            break
+        result += term
+        i += 1
+    return (2 / sqrt(PI)) * result
+
+def erfc(x):
+    return 1 - erf(x)
+
+def tgamma(x):
+    if x.is_integer() and x > 0:
+        return factorial(int(x) - 1)
+    if x <= 0:
+        raise ValueError("Math domain error")
+    result = x
+    while x > 1:
+        x -= 1
+        result *= x
+    return result
+
+def lgamma(x):
+    if x.is_integer() and x > 0:
+        return log(factorial(int(x) - 1))
+    if x <= 0:
+        raise ValueError("Math domain error")
+    result = log(x)
+    while x > 1:
+        x -= 1
+        result += log(x)
+    return log(result)
+
+# Add rounding and remainder functions
+def ceil(x):
+    if int(x) == x:
+        return x
+    return int(x) + 1
+
+def floor(x):
+    if int(x) == x:
+        return x
+    return int(x)
+
+def fmod(x, y):
+    return x - (int(x / y) * y)
+
+def trunc(x):
+    if x >= 0:
+        return int(x)
+    return int(x) + 1
+
+def round(x):
+    if x >= 0:
+        return int(x + 0.5)
+    return int(x - 0.5)
+
+# Add floating-point manipulation functions
+def copysign(x, y):
+    return abs(x) * (1 if y >= 0 else -1)
+
+def nan(x):
+    return float("nan")
+
+def fdim(x, y):
+    if x > y:
+        return x - y
+    return 0
+
+def fmax(x, y):
+    if x > y:
+        return x
+    return y
+
+def fmin(x, y):
+    if x < y:
+        return x
+    return y
+
+def signbit(x):
+    return x < 0
+
+# Add comparison macro/functions
+def isgreater(x, y):
+    return x > y
+
+def isgreaterequal(x, y):
+    return x >= y
+
+def isless(x, y):
+    return x < y
+
+def islessequal(x, y):
+    return x <= y
+
+def islessgreater(x, y):
+    return x != y
+
+
+# Add macro constants
+math_errhandling = 1
+INFINITY = float("inf")
+NAN = float("nan")
+HUGE_VAL = float("inf")
+HUGE_VALF = float("inf")
+HUGE_VALL = float("inf")
